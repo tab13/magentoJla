@@ -109,6 +109,7 @@
                             <show_in_store>1</show_in_store>
                             <comment></comment>
                         </assign_credit>
+                        <!--CUSTOMIZE store credit US01-->
                         <enable_purchase_credit translate="label">
                             <label>Allow customer to purchase credit</label>
                             <frontend_type>select</frontend_type>
@@ -119,6 +120,7 @@
                             <show_in_store>1</show_in_store>
                             <comment></comment>
                         </enable_purchase_credit>
+                        <!--CUSTOMIZE store credit US01-->
                     </fields>
                 </general>
                 <report translate="label">
