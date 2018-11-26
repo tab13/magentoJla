@@ -32,7 +32,9 @@
     <div class="page-title title-buttons">
         <p style="float: left">
             <?php echo $this->__('Your credit balance is: ') ?><strong class="customerreward-money"style="color: #3182be"><?php echo $this->getBalanceLabel() ?></strong>
+            <?php if ($this->getConfigAllowRedeemCredit()): ?>
             <a href="<?php echo $this->getUrl('customercredit/index/redeem') ?>"><?php echo $this->__('(Redeem credit code)') ?></a>
+            <?php endif; ?>
         </p>
 <!--        CUSTOMIZE store credit US01-->
         <?php if ($this->getConfigAllowPurchaseCredit()): ?>

@@ -64,4 +64,11 @@ class Magestore_Customercredit_Block_Sumary extends Mage_Core_Block_Template
     }
 //    CUSTOMIZE store credit end US01
 
+//    CUSTOMIZE store credit US02
+    public function getConfigAllowRedeemCredit() {
+        $configEnable = $this->getStoreConfig('customercredit/general/enable_redeem_credit');
+        return $configEnable;
+    }
+//    CUSTOMIZE store credit end US02
+
 }
