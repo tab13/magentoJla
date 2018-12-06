@@ -122,12 +122,12 @@ class Magestore_Customercredit_Helper_Data extends Mage_Core_Helper_Data
 
     public function checkExpirationDateAndReset() {
         $customerResourceModel = Mage::getResourceModel('customer/customer_collection');
-        $customers = $customerResourceModel->addFieldToFilter('credit_expiration_notify_date', array('notnull' => true));
+        $customers = $customerResourceModel->addFieldToFilter('credit_expiration_date', array('notnull' => true));
         foreach ($customers as $customer) {
             $customerCredit = Mage::getModel('customer/customer')->load($customer->getId());
-            $customerExpireDate = $customer->getCreditExpirationDate();
+            $customerExpireDate = $customerCredit->getCreditExpirationDate();
             if (!is_null($customerExpireDate)) {
-                if (strtotime($customer->getCreditExpirationDate()) < strtotime(now())) {
+                if (strtotime($customerExpireDate) < strtotime(now())) {
                     $customerCredit->setCreditValue(0);
                     $customerCredit->setCreditExpirationDate(null);
                     $customerCredit->save();
@@ -164,7 +164,7 @@ class Magestore_Customercredit_Helper_Data extends Mage_Core_Helper_Data
         foreach ($customers as $customer) {
             $isSendEmail = false;
             $customercredit = $customerModel->load($customer->getId());
-            $customerExpireDate = $customer->getCreditExpirationDate();
+            $customerExpireDate = $customercredit->getCreditExpirationDate();
             if (!is_null($customerExpireDate)) {
                 foreach ($notifyDays as $key => $value ) {
                     $notifyDate = date('Y-m-d H:i:s', strtotime($customerExpireDate  . ' -' . $value['day_left']  . ' day'));

@@ -47,8 +47,9 @@ class Magestore_Customercredit_Model_Observer
         $customerModel = Mage::getResourceModel('customer/customer_collection');
         $customers = $customerModel->addFieldToFilter('credit_expiration_notify_date', array('notnull' => true));
         foreach ($customers as $customer) {
-            $isSendEmail = false;;
-            $customerExpirationDates = json_decode($customer->getCreditExpirationNotifyDate());
+            $customerCredit = Mage::getModel('customer/customer')->load($customer->getId());
+            $isSendEmail = false;
+            $customerExpirationDates = json_decode($customerCredit->getCreditExpirationNotifyDate());
             if (!is_null($customerExpirationDates) && count($customerExpirationDates) > 0) {
                 foreach ($customerExpirationDates as $key => $value) {
                     if (!$isSendEmail && strtotime($value) <= strtotime(now())) {
