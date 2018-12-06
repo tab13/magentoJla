@@ -29,12 +29,14 @@
         <h2 class="title-credit-balance"><?php echo $this->__('Your Balance') ?></h2>
     </div>
     <?php echo $this->getPagerHtml() ?>
-    <div class="page-title title-buttons">
-        <p style="float: left">
+    <div class="page-title title-buttons" style="width: 100%;">
+        <p style="float: left; width: 100%;">
             <?php echo $this->__('Your credit balance is: ') ?><strong class="customerreward-money"style="color: #3182be"><?php echo $this->getBalanceLabel() ?></strong>
+            <!--        CUSTOMIZE store credit US02-->
             <?php if ($this->getConfigAllowRedeemCredit()): ?>
             <a href="<?php echo $this->getUrl('customercredit/index/redeem') ?>"><?php echo $this->__('(Redeem credit code)') ?></a>
             <?php endif; ?>
+            <!--        CUSTOMIZE store credit end US02-->
         </p>
 <!--        CUSTOMIZE store credit US01-->
         <?php if ($this->getConfigAllowPurchaseCredit()): ?>
@@ -43,5 +45,12 @@
         </button>
         <?php endif; ?>
 <!--        CUSTOMIZE store credit end US01-->
+    </div>
+    <div>
+        <!--        CUSTOMIZE store credit US03-->
+        <?php if ($this->getConfigAllowShowExpirationDate() && $this->getExpirationDate()): ?>
+            <p><?php echo $this->__('(Expire at %s )', $this->getExpirationDate()) ?></p>
+        <?php endif; ?>
+        <!--        CUSTOMIZE store credit end US03-->
     </div>
 </div>

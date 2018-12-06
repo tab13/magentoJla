@@ -1,0 +1,24 @@
+<?php
+
+//CUSTOMIZE store credit US03
+
+$customers = Mage::getModel('customer/customer')->getCollection();
+$customerCreditCollection = Mage::getResourceModel('customercredit/transaction_collection');
+$customerModel = Mage::getModel('customer/customer');
+$creditHelper = Mage::helper('customercredit');
+
+foreach ($customers as $customer) {
+//    if ($customer->getId() == 141) {
+        $data = $customerCreditCollection->getFirstTransactionbyCustomerId($customer->getId());
+//        \Zend_Debug::dump($data->getData()[0]['transaction_time']);
+        if ($data) {
+            $customerModel = $customerModel->load($customer->getId());
+            if ($customerModel->getCreditExpirationDate() && ($customerModel->getCreditExpirationDate() != $data->getData()[0]['transaction_time'])) {
+                $dateExpire = date('Y-m-d H:i:s', strtotime($data->getData()[0]['transaction_time']  . ' +' . $creditHelper->getExpirationDateConfig('expiration_period')  . ' day'));
+                $customerModel->setCreditExpirationDate($dateExpire)->save();
+//                \Zend_Debug::dump($customerModel->getCreditExpirationDate());
+//                die();
+            }
+//        }
+    }
+}

@@ -53,22 +53,30 @@ class Magestore_Customercredit_Block_Sumary extends Mage_Core_Block_Template
     }
 
 //    CUSTOMIZE store credit US01
-    public function getStoreConfig($path)
-    {
-        return Mage::getStoreConfig($path, Mage::app()->getStore()->getId());
-    }
-
     public function getConfigAllowPurchaseCredit() {
-        $configEnable = $this->getStoreConfig('customercredit/general/enable_purchase_credit');
+        $configEnable = Mage::helper('customercredit')->getGeneralConfig('enable_purchase_credit');
         return $configEnable;
     }
 //    CUSTOMIZE store credit end US01
 
 //    CUSTOMIZE store credit US02
     public function getConfigAllowRedeemCredit() {
-        $configEnable = $this->getStoreConfig('customercredit/general/enable_redeem_credit');
+        $configEnable = Mage::helper('customercredit')->getGeneralConfig('enable_redeem_credit');
         return $configEnable;
     }
 //    CUSTOMIZE store credit end US02
+
+//    CUSTOMIZE store credit US03
+    public function getConfigAllowShowExpirationDate() {
+        $configEnable = Mage::helper('customercredit')->getExpirationDateConfig('enable');
+        return $configEnable;
+    }
+
+    public function getExpirationDate() {
+        $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+        $expirationDate = Mage::helper('customercredit')->getCustomerCreditExpirationDate($customerId);
+        return $expirationDate;
+    }
+//    CUSTOMIZE store credit end US03
 
 }

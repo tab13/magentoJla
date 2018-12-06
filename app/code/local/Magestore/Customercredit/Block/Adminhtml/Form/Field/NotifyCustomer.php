@@ -1,0 +1,65 @@
+<?php
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Purchaseordersuccess
+ * @copyright   Copyright (c) 2016 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+
+/**
+ * Purchaseordersuccess Helper
+ *
+ * @category    Magestore
+ * @package     Magestore_Purchaseordersuccess
+ * @author      Magestore Developer
+ */
+
+//CUSTOMIZE store credit US03
+
+class Magestore_Customercredit_Block_Adminhtml_Form_Field_NotifyCustomer
+    extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
+{
+    /**
+     * @var StatusField
+     */
+    protected $_statusRenderer;
+
+    /**
+     * @var DescriptionField
+     */
+    protected $_description;
+
+    /**
+     * @var bool
+     */
+    protected $_hasDescription = false;
+
+    /**
+     * Prepare to render
+     *
+     * @return void
+     */
+    protected function _prepareToRender()
+    {
+        $this->addColumn('day_left',
+            array('label' => $this->__('Day(s) left'),
+                'class' => 'validate-zero-or-greater',
+            )
+        );
+        $this->_addAfter = false;
+    }
+
+}
