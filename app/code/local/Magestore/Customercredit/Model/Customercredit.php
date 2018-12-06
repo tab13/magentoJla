@@ -382,34 +382,33 @@ class Magestore_Customercredit_Model_Customercredit extends Mage_Core_Model_Abst
         return $this;
     }
 
-    // CUSTOMIZE store credit US03
-    /**
-     *
-     */
-    public function sendNotifyExpirationDateEmail($customerId,$value,$qqqq) {
+    // CUSTOMIZE store credit US03,US04
+    public function sendNotifyExpirationDateEmail($customerId) {
         $customer = Mage::getModel('customer/customer')->load($customerId);
+        $expireDate = strtotime(date('Y-m-d H:i:s', strtotime($customer->getCreditExpirationDate())));
+        $now = strtotime(date('Y-m-d H:i:s', strtotime(now())));
+        $dayLefts = floor(($expireDate - $now) / 86400);
+
+
         $store = Mage::app()->getStore($this->getStoreId());
         $translate = Mage::getSingleton('core/translate');
         $translate->setTranslateInline(false);
-        Mage::getModel('core/email_template')
+        $mailTemplate = Mage::getModel('core/email_template')
             ->setDesignConfig(array(
                 'area' => 'frontend',
-                'store' => $store->getId()
-            ))->sendTransactional(
-                Mage::getStoreConfig('rewardpoints/email/before_expire_transaction', $store), Mage::getStoreConfig('rewardpoints/email/sender', $store), $customer->getEmail(), $customer->getName(), array(
-                    'store' => $store,
-                    'customer' => $customer,
-                    'title' => 'testqewqewqewqew'.' '.$customerId.' '.$value.' '.json_encode($qqqq),
-                    'amount' => 12,
-                    'total' => 34,
-                    'point_amount' => Mage::helper('rewardpoints/point')->format(123, $store),
-                    'point_balance' => Mage::helper('rewardpoints/point')->format(345, $store),
-                    'status' => 'heheheh',
+                'store' => $store->getStoreId()
+            ));
+        $mailTemplate->sendTransactional(
+                Mage::helper('customercredit')->getEmailConfig('notify_expiration_date_email', $store->getStoreId()),
+                    Mage::helper('customercredit')->getEmailConfig('sender', $store->getStoreId()),
+            $customer->getEmail(), $customer->getFirstname() . " " . $customer->getLastname(), array(
+                                'customerName' => $customer->getFirstname() . " " . $customer->getLastname(),
+                                'daysLeft' => $dayLefts
                 )
             );
         $translate->setTranslateInline(true);
         return $this;
     }
-    // CUSTOMIZE store credit end US03
+    // CUSTOMIZE store credit end US03,US04
 
 }

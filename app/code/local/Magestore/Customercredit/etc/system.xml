@@ -291,6 +291,17 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </notify_success>
+                        <!--CUSTOMIZE store credit US04-->
+                        <notify_expiration_date_email translate="label">
+                            <label>Email template notifying expiration</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </notify_expiration_date_email>
+                        <!--CUSTOMIZE store credit end US04-->
                     </fields>
                 </email>
                 <style_management translate="label">

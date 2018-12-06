@@ -52,7 +52,7 @@ class Magestore_Customercredit_Model_Observer
             if (!is_null($customerExpirationDates) && count($customerExpirationDates) > 0) {
                 foreach ($customerExpirationDates as $key => $value) {
                     if (!$isSendEmail && strtotime($value) <= strtotime(now())) {
-                        Mage::getModel('customercredit/customercredit')->sendNotifyExpirationDateEmail($customer->getId(),$value,$customerExpirationDates);
+                        Mage::getModel('customercredit/customercredit')->sendNotifyExpirationDateEmail($customer->getId());
                         $isSendEmail = true;
                     }
                 }
