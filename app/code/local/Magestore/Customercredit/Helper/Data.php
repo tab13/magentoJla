@@ -105,11 +105,13 @@ class Magestore_Customercredit_Helper_Data extends Mage_Core_Helper_Data
     }
 
     public function setCreditExpirationDateAfterChangeConfig($old, $new) {
+        $customerResourceModel = Mage::getResourceModel('customer/customer_collection');
+        $customers = $customerResourceModel->addFieldToFilter('credit_expiration_notify_date', array('notnull' => true));
         $customerModel = Mage::getModel('customer/customer');
-        $customers = $customerModel->getCollection();
+//        $customers = $customerModel->getCollection();
         foreach ($customers as $customer) {
             $customercredit = $customerModel->load($customer->getId());
-            $customerExpireDate = $customercredit->getCreditExpirationDate();
+            $customerExpireDate = $customer->getCreditExpirationDate();
             if (!is_null($customerExpireDate)) {
                 $transactionDate = date('Y-m-d H:i:s', strtotime($customerExpireDate  . ' -' . $old  . ' day'));
                 $newExpireDate = date('Y-m-d H:i:s', strtotime($transactionDate  . ' +' . $new  . ' day'));
@@ -118,14 +120,18 @@ class Magestore_Customercredit_Helper_Data extends Mage_Core_Helper_Data
         }
     }
 
-    public function checkExpirationDateAndReset($customerId) {
-        $customerCredit = Mage::getModel('customer/customer')->load($customerId);
-        $customerExpireDate = $customerCredit->getCreditExpirationDate();
-        if (!is_null($customerExpireDate)) {
-            if (strtotime($customerCredit->getCreditExpirationDate()) < strtotime(now())) {
-                $customerCredit->setCreditValue(0);
-                $customerCredit->setCreditExpirationDate(null);
-                $customerCredit->save();
+    public function checkExpirationDateAndReset() {
+        $customerResourceModel = Mage::getResourceModel('customer/customer_collection');
+        $customers = $customerResourceModel->addFieldToFilter('credit_expiration_notify_date', array('notnull' => true));
+        foreach ($customers as $customer) {
+            $customerCredit = Mage::getModel('customer/customer')->load($customer->getId());
+            $customerExpireDate = $customer->getCreditExpirationDate();
+            if (!is_null($customerExpireDate)) {
+                if (strtotime($customer->getCreditExpirationDate()) < strtotime(now())) {
+                    $customerCredit->setCreditValue(0);
+                    $customerCredit->setCreditExpirationDate(null);
+                    $customerCredit->save();
+                }
             }
         }
     }
@@ -149,14 +155,16 @@ class Magestore_Customercredit_Helper_Data extends Mage_Core_Helper_Data
     }
 
     public function setCreditExpirationNotifyDateAfterChangeConfig($new) {
+        $customerResourceModel = Mage::getResourceModel('customer/customer_collection');
+        $customers = $customerResourceModel->addFieldToFilter('credit_expiration_notify_date', array('notnull' => true));
         $customerModel = Mage::getModel('customer/customer');
-        $customers = $customerModel->getCollection();
+//        $customers = $customerModel->getCollection();
         $notifyDays = unserialize($new);
         $notifyDatesArray = array();
         foreach ($customers as $customer) {
             $isSendEmail = false;
             $customercredit = $customerModel->load($customer->getId());
-            $customerExpireDate = $customercredit->getCreditExpirationDate();
+            $customerExpireDate = $customer->getCreditExpirationDate();
             if (!is_null($customerExpireDate)) {
                 foreach ($notifyDays as $key => $value ) {
                     $notifyDate = date('Y-m-d H:i:s', strtotime($customerExpireDate  . ' -' . $value['day_left']  . ' day'));
@@ -167,7 +175,7 @@ class Magestore_Customercredit_Helper_Data extends Mage_Core_Helper_Data
                     }
                 }
                 $notifyDatesString = json_encode($notifyDatesArray);
-                $customerModel->setCreditExpirationNotifyDate($notifyDatesString)->save();
+                $customercredit->setCreditExpirationNotifyDate($notifyDatesString)->save();
             }
         }
     }

@@ -137,7 +137,7 @@ class Magestore_Customercredit_Block_Adminhtml_Customer_Tab_Storecredit extends 
     public function getBalanceCredit()
     {
         //    CUSTOMIZE store credit US03
-        Mage::helper('customercredit')->checkExpirationDateAndReset(Mage::registry('current_customer')->getId());
+//        Mage::helper('customercredit')->checkExpirationDateAndReset(Mage::registry('current_customer')->getId());
         //    CUSTOMIZE store credit end US03
         $customerCredit = $this->getCredit()->getCreditValue();
         return Mage::helper('core')->currency($customerCredit);

@@ -61,6 +61,15 @@ class Magestore_Customercredit_Model_Observer
         }
         return $this;
     }
+
+    public function checkAndResetCreditValue() {
+        if (!Mage::helper('customercredit')->getExpirationDateConfig('enable')) {
+            return $this;
+        }
+        Mage::helper('customercredit')->checkExpirationDateAndReset();
+        return $this;
+    }
+
     // CUSTOMIZE store credit end US03
 
     /**

@@ -512,14 +512,22 @@
     <!--CUSTOMIZE store credit US03-->
     <crontab>
         <jobs>
-            <customercredit_expiration_date>
+            <customercredit_reset_credit_value>
+                <schedule>
+                    <cron_expr>* * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>customercredit/observer::checkAndResetCreditValue</model>
+                </run>
+            </customercredit_reset_credit_value>
+            <customercredit_notify_expiration_date>
                 <schedule>
                     <cron_expr>0 0 * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>customercredit/observer::sendNotifyExpirationDateEmail</model>
                 </run>
-            </customercredit_expiration_date>
+            </customercredit_notify_expiration_date>
         </jobs>
     </crontab>
     <!--CUSTOMIZE store credit end US03-->
