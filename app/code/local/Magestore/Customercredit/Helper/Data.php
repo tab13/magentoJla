@@ -106,7 +106,7 @@ class Magestore_Customercredit_Helper_Data extends Mage_Core_Helper_Data
 
     public function setCreditExpirationDateAfterChangeConfig($old, $new) {
         $customerResourceModel = Mage::getResourceModel('customer/customer_collection');
-        $customers = $customerResourceModel->addFieldToFilter('credit_expiration_notify_date', array('notnull' => true));
+        $customers = $customerResourceModel->addFieldToFilter('credit_expiration_date', array('notnull' => true));
         $customerModel = Mage::getModel('customer/customer');
 //        $customers = $customerModel->getCollection();
         foreach ($customers as $customer) {
