@@ -351,16 +351,100 @@
         <sales>
             <quote>
                 <totals>
+                    <!--CUSTOMIZE store credit US08-->
+                    <rewardpoints_label>
+                        <sort_order>12297</sort_order>
+                    </rewardpoints_label>
+                    <nominal>
+                        <sort_order>12299</sort_order>
+                    </nominal>
+                    <subtotal>
+                        <sort_order>12301</sort_order>
+                    </subtotal>
+                    <freeshipping>
+                        <sort_order>12303</sort_order>
+                    </freeshipping>
+                    <tax_subtotal>
+                        <sort_order>12304</sort_order>
+                    </tax_subtotal>
+                    <weee>
+                        <sort_order>12305</sort_order>
+                    </weee>
+                    <shipping>
+                        <sort_order>12307</sort_order>
+                    </shipping>
+                    <tax_shipping>
+                        <sort_order>12309</sort_order>
+                    </tax_shipping>
+                    <surcharge>
+                        <sort_order>12310</sort_order>
+                    </surcharge>
+                    <customercreditbeforetax>
+                        <class>customercredit/total_quote_discountbeforetax</class>
+                        <!-- <after>wee,discount,subtotal</after> -->
+                        <!-- <before>tax</before> -->
+                        <sort_order>12311</sort_order>
+                    </customercreditbeforetax>
+                    <tax>
+                        <sort_order>12313</sort_order>
+                    </tax>
+                    <giftcardcredit_after_tax>
+                        <sort_order>12315</sort_order>
+                    </giftcardcredit_after_tax>
+                    <giftvoucher_after_tax>
+                        <sort_order>12317</sort_order>
+                    </giftvoucher_after_tax>
+                    <rewardpoints_after_tax>
+                        <sort_order>12319</sort_order>
+                    </rewardpoints_after_tax>
                     <customercredit>
                         <class>customercredit/total_quote_discount</class>
-                        <after>tax,rewardpoints_label,shipping,tax_shipping</after>
-                        <before>grand_total</before>
+                        <!-- <after>tax,rewardpoints_label,shipping,tax_shipping</after> -->
+                        <!-- <before>grand_total</before> -->
+                        <sort_order>12321</sort_order>
                     </customercredit>
-                    <customercreditbeforetax>
+                    <offer_after_tax>
+                        <sort_order>12323</sort_order>
+                    </offer_after_tax>
+                    <discount>
+                        <sort_order>12325</sort_order>
+                    </discount>
+                    <rewardpoints_catalog>
+                        <sort_order>12327</sort_order>
+                    </rewardpoints_catalog>
+                    <offer>
+                        <sort_order>12329</sort_order>
+                    </offer>
+                    <rewardpoints>
+                        <sort_order>12331</sort_order>
+                    </rewardpoints>
+                    <giftcardcredit>
+                        <sort_order>12333</sort_order>
+                    </giftcardcredit>
+                    <giftvoucher>
+                        <sort_order>12335</sort_order>
+                    </giftvoucher>
+                    <grand_total>
+                        <sort_order>12337</sort_order>
+                    </grand_total>
+                    <msrp>
+                        <sort_order>12339</sort_order>
+                    </msrp>
+                    <giftwrap>
+                        <sort_order>12341</sort_order>
+                    </giftwrap>
+
+                    <!--CUSTOMIZE store credit end US08-->
+                    <!-- <customercreditbeforetax>
                         <class>customercredit/total_quote_discountbeforetax</class>
                         <after>wee,discount,subtotal</after>
                         <before>tax</before>
                     </customercreditbeforetax>
+                    <customercredit>
+                        <class>customercredit/total_quote_discount</class>
+                        <after>tax,rewardpoints_label,shipping,tax_shipping</after>
+                        <before>grand_total</before>
+                    </customercredit> -->
                 </totals>
             </quote>
             <order_invoice>
